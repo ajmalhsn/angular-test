@@ -7,7 +7,7 @@ import { PROMOTIONS } from '../shared/promotions';
 export class PromotionService {
 
   constructor() { }
-  getDishes(): Promotion[] {
+  getPromotions(): Promotion[] {
     return PROMOTIONS;
   }
   getPromotion(id: string): Promotion {
