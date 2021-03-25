@@ -23,7 +23,7 @@
           <i class="fa fa-envelope"></i>: 
                 <a href="mailto:confusion@food.net">confusion@food.net</a>
         </address>
-        <p></p>
+        
         <div>
           <a mat-raised-button href="tel:+85212345678"><i class="fa fa-phone"></i> Call</a>
           <a mat-raised-button><i class="fa fa-skype"></i> Skype</a>
@@ -34,5 +34,45 @@
         <h4>Map of our Location</h4>
       </div>
     </div>
+  </div>
+  <div fxFlex class="form-size">
+    <h3>Send us your Feedback</h3>
+    {{feedbackForm.value | json}} {{feedbackForm.status | json}}
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" >
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="firstname" formControlName="firstname" type="text">
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="lastname" formControlName="lastname" type="text">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="telnum" formControlName="telnum" type="number">
+        </mat-form-field>
+        <mat-form-field class="half-width">
+          <input matInput placeholder="email" formControlName="email" type="email">
+        </mat-form-field>
+      </p>
+      <p>
+        <table >
+          <td>
+            <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
+          </td>
+          <td>
+            <mat-select placeholder="How?" formControlName="contacttype">
+              <mat-option *ngFor="let ctype of contactType" [value]="ctype"> {{ ctype }}</mat-option>
+            </mat-select>
+          </td>
+        </table>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+        </mat-form-field>
+      </p>
+        <button mat-button type="submit" class="background-primary text-floral-white">Submit</button>
+      
+    </form>
   </div>
 </div>
