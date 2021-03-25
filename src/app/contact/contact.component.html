@@ -38,21 +38,25 @@
   <div fxFlex class="form-size">
     <h3>Send us your Feedback</h3>
     {{feedbackForm.value | json}} {{feedbackForm.status | json}}
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" >
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
       <p>
         <mat-form-field class="half-width">
           <input matInput placeholder="firstname" formControlName="firstname" type="text">
+          <mat-error *ngIf="feedbackForm.get('firstname').hasError('required') && feedbackForm.get('firstname').touched">First name is required</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
           <input matInput placeholder="lastname" formControlName="lastname" type="text">
+          <mat-error *ngIf="feedbackForm.get('lastname').hasError('required') && feedbackForm.get('lastname').touched">Last name is required</mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field class="half-width">
           <input matInput placeholder="telnum" formControlName="telnum" type="number">
+          <mat-error *ngIf="feedbackForm.get('telnum').hasError('required') && feedbackForm.get('telnum').touched">Telephone number is required</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
           <input matInput placeholder="email" formControlName="email" type="email">
+          <mat-error *ngIf="feedbackForm.get('email').hasError('required') && feedbackForm.get('email').touched">Email is required</mat-error>
         </mat-form-field>
       </p>
       <p>
@@ -61,9 +65,11 @@
             <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
           </td>
           <td>
-            <mat-select placeholder="How?" formControlName="contacttype">
-              <mat-option *ngFor="let ctype of contactType" [value]="ctype"> {{ ctype }}</mat-option>
+            <mat-form-field>
+            <mat-select formControlName="contacttype">
+              <mat-option placeholder="How?" *ngFor="let ctype of contactType" [value]="ctype"> {{ ctype }}</mat-option>
             </mat-select>
+          </mat-form-field>
           </td>
         </table>
       <p>
