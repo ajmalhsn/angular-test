@@ -85,7 +85,7 @@ export class DishdetailComponent implements OnInit {
     this.single_comment.author = this.CommentForm.get('author').value;
     this.single_comment.comment = this.CommentForm.get('comment').value;
     this.single_comment.rating = this.CommentForm.get('rating').value;
-    this.single_comment.date = new Date().toDateString();
+    this.single_comment.date = new Date(Date.now()).toISOString();
     console.log(this.single_comment);
     this.dish.comments.push(this.single_comment);
     this.CommentForm.reset({
