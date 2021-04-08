@@ -15,9 +15,11 @@ import { Comment } from '../shared/comments';
 export class DishdetailComponent implements OnInit {
 
   dish: Dish;
+  dishcopy: Dish;
   prev: string;
   next: string;
   dishIds: string[];
+  errMess: string;
   single_comment: Comment;
   CommentForm: FormGroup;
   @ViewChild('cform') CommentFormDirective;
@@ -42,11 +44,11 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     let id = this.route.snapshot.params['id'];
-    this.dishService.getDish(id).subscribe((Dish) => this.dish = Dish);
+    this.dishService.getDish(id).subscribe((Dish) => this.dish = Dish, errmess => this.errMess = errmess);
     this.dishService.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params
     .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-    .subscribe((dish) => {this.dish = dish; this.setPrevNext(dish.id); });
+    .subscribe((dish) => {this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); });
 
   }
 
@@ -87,7 +89,10 @@ export class DishdetailComponent implements OnInit {
     this.single_comment.rating = this.CommentForm.get('rating').value;
     this.single_comment.date = new Date(Date.now()).toISOString();
     console.log(this.single_comment);
-    this.dish.comments.push(this.single_comment);
+    this.dishcopy.comments.push(this.single_comment);
+    this.dishService.putDish(this.dishcopy)
+    .subscribe(dish => {this.dish = dish; this.dishcopy = dish;},
+       errmess => this.errMess = errmess)
     this.CommentForm.reset({
       author: "",
       comment: "",
