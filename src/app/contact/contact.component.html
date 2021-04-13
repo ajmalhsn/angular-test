@@ -35,10 +35,38 @@
       </div>
     </div>
   </div>
-  <div fxFlex class="form-size">
+  <div [hidden]="!visibility2">
+    <mat-spinner></mat-spinner><h4>Loading . . . Please Wait</h4>
+  </div>
+  <mat-list  [hidden]="visibility" *ngIf="feedbackcopy" >
+    <h3>Your Submission</h3>
+    <mat-list-item>
+      <p matLine>
+        <span> <h3>First Name:  {{feedbackcopy.firstname}}</h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>Last Name: {{feedbackcopy.lastname}} </h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>Tel. Number: {{feedbackcopy.telnum}}</h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>Email: {{feedbackcopy.email}} </h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>Contact You?: {{feedbackcopy.agree }}</h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>How: {{feedbackcopy.contacttype }}</h3></span>
+      </p>
+      <p matLine>
+        <span> <h3>Feedback: {{feedbackcopy.message }}</h3></span>
+      </p>
+    </mat-list-item>
+  </mat-list>
+  <div fxFlex class="form-size"  *ngIf="!visibility2" [@visibility]="visible">
     <h3>Send us your Feedback</h3>
-    {{feedbackForm.value | json}} {{feedbackForm.status | json}}
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
+    <form class="half-width" novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()" >
       <p>
         <mat-form-field class="half-width">
           <input matInput placeholder="firstname" formControlName="firstname" type="text">

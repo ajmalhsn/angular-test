@@ -14,7 +14,7 @@
     <h4>{{errMess}}</h4>
   </div>
   <div fxFlex="40">
-    <div fxFlex *ngIf="dish">
+    <div fxFlex *ngIf="dish" [@visibility]="visibility" [@expand]>
         <mat-card>
           <mat-card-header>
             <mat-card-title>
@@ -51,7 +51,7 @@
     </div>
     <div *ngIf="dish">
       <mat-list>
-  <mat-list-item *ngFor="let comment of dish.comments">
+  <mat-list-item *ngFor="let comment of dish.comments" [@expand]>
     <p matLine>
       <span> {{comment.rating}} Stars </span>
     </p>
